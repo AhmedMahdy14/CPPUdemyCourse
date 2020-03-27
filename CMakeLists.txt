@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.15)
+project(CPPUdemyCourse)
+
+set(CMAKE_CXX_STANDARD 20)
+
+add_executable(CPPUdemyCourse main.cpp section6_variables_and_constants.cpp section7_arrays_and_vectors.cpp section8_statement_and_operators.cpp cmake-build-debug/section9_controlling_program_flow.cpp cmake-build-debug/section10_controlling_program_flow.cpp)
