@@ -34,7 +34,7 @@ public:
     bool add_movie(std::string name, std::string rating, int watched);
     
     /*************************************************************************
-    increment_watched expects the name of the move to increment the
+    increment_watched expects the name of the movie to increment the
     watched count
     
     It will search the movies vector to see if a movie object already exists

@@ -2,7 +2,7 @@
  * Section 13 Challenge
  * Movie.h
  * 
- * Models a Movie with the following atttributes
+ * Models a Movie with the following attributes
  * 
  * std::string name - the name of the movie 
  * std::string rating - G, PG, PG-13, R
