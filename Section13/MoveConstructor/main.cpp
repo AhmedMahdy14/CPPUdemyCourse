@@ -52,6 +52,14 @@ Move::~Move() {
 int main() {
     vector<Move> vec;
 
+//    Move{10} when it's benn called it's been allocated at a temporary var
+//    temp, and temp needs to be copied to the vec, that's why we call the copy
+//    constructor, but because Move{10} is a r-value, it needs to call the move
+//    constructor instead due to efficiency, Move constructor steals the data
+//    and assign nullpointer to the source data.
+//    In this case the source data is a temp obj, which will be deleted after
+//    calling this move constr.
+
     vec.push_back(Move{10});
 
     vec.push_back(Move{20});
