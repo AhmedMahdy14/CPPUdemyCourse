@@ -3,14 +3,14 @@
 #include "Mystring.h"
 
  // No-args constructor
-Mystring::Mystring() 
+Mystring::Mystring()
     : str{nullptr} {
     str = new char[1];
     *str = '\0';
 }
 
 // Overloaded constructor
-Mystring::Mystring(const char *s) 
+Mystring::Mystring(const char *s)
     : str {nullptr} {
         if (s==nullptr) {
             str = new char[1];
@@ -22,7 +22,7 @@ Mystring::Mystring(const char *s)
 }
 
 // Copy constructor
-Mystring::Mystring(const Mystring &source) 
+Mystring::Mystring(const Mystring &source)
     : str{nullptr} {
         str = new char[strlen(source.str)+ 1];
         strcpy(str, source.str);
@@ -31,7 +31,7 @@ Mystring::Mystring(const Mystring &source)
 }
 
 // Move constructor
-Mystring::Mystring( Mystring &&source) 
+Mystring::Mystring( Mystring &&source)
     :str(source.str) {
         source.str = nullptr;
 //        std::cout << "Move constructor used" << std::endl;
@@ -46,7 +46,7 @@ Mystring::~Mystring() {
 Mystring &Mystring::operator=(const Mystring &rhs) {
 //    std::cout << "Using copy assignment" << std::endl;
 
-    if (this == &rhs) 
+    if (this == &rhs)
         return *this;
     delete [] str;
     str = new char[strlen(rhs.str) + 1];
@@ -57,7 +57,7 @@ Mystring &Mystring::operator=(const Mystring &rhs) {
 // Move assignment
 Mystring &Mystring::operator=( Mystring &&rhs) {
  //   std::cout << "Using move assignment" << std::endl;
-    if (this == &rhs) 
+    if (this == &rhs)
         return *this;
     delete [] str;
     str = rhs.str;
@@ -65,6 +65,92 @@ Mystring &Mystring::operator=( Mystring &&rhs) {
     return *this;
 }
 
+
+Mystring Mystring::operator-() const{
+    std::cout << "Using - operator" << std::endl;
+    char *buff = new char[std::strlen(str) + 1];
+    std::strcpy(buff, str);
+    for(size_t i=0; i<std::strlen(buff); i++){
+        buff[i] = std::tolower(buff[i]);
+    }
+    Mystring lower_obj {buff};
+    delete [] buff;
+    return lower_obj;
+}
+
+bool Mystring::operator==(const Mystring &rhs) const { // check equality
+    std::cout << "Using == operator" << std::endl;
+
+    return std::strcmp(str, rhs.str) == 0;
+}
+
+bool Mystring::operator!=(const Mystring &rhs) const { // check not equality
+    std::cout << "Using != operator" << std::endl;
+
+    return std::strcmp(str, rhs.str) != 0;
+}
+
+bool Mystring::operator<(const Mystring &rhs) const{
+    return std::strcmp(str, rhs.str) < 0;
+}
+
+
+bool Mystring::operator>(const Mystring &rhs) const{
+    return std::strcmp(str, rhs.str) > 0;
+
+}
+
+
+Mystring Mystring::operator+(const Mystring &rhs) const{
+    std::cout << "Using + overloaded operator" << std::endl;
+    char *buff = new char[std::strlen(str) + std::strlen(rhs.str) + 1];
+  std::strcpy(buff, str);
+  std::strcat(buff, rhs.str);
+  Mystring cat_str {buff};
+  delete [] buff;
+  return cat_str;
+
+}
+
+
+Mystring &Mystring::operator+=(const Mystring &&rhs) {
+    *this = *this + rhs;
+    return *this;
+}
+
+
+Mystring Mystring::operator*(const int rhs) const{
+    Mystring temp;
+    for (int i=1; i<= n; i++)
+        temp = temp + *this;
+    return temp;
+    /*
+    size_t buff_size = std::strlen(str) * n + 1;
+    char *buff = new char[buff_size];
+    strcpy(buff, "");
+    for (int i =1; i <=n; i++)
+        strcat(buff, str);
+    Mystring temp{buff};
+    delete [] buff;
+    return temp;
+    */
+
+}
+
+Mystring &Mystring::operator*=(const int rhs) {
+    char *buff = new char[std::strlen(str) * rhs + 1];
+    auto counter = 0;
+    for (int i = 0; i < rhs; ++i) {
+        for(auto j:str){
+            buff[counter] = str[j];
+            ++counter;
+        }
+    }
+    str = new char[std::strlen(buff)];
+    delete [] buff;
+    return str;
+
+}
 
 // Display method
 void Mystring::display() const {

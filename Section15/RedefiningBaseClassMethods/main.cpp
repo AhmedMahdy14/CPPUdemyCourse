@@ -20,7 +20,7 @@ int main() {
     a1.withdraw(5000.0);         // Insufficient funds
     cout << a1 << endl;         // Account balance: 500
 
- cout << "\n===== Savings Account class ===========" << endl;
+    cout << "\n===== Savings Account class ===========" << endl;
     Savings_Account s1 {1000, 5.0}; 
     cout << s1 << endl;         // Savings Account balance: 1000, Interest rate: 5
     

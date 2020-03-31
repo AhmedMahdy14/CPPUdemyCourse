@@ -30,6 +30,7 @@ Mystring::Mystring(const Mystring &source)
 
 }
 
+// think of it as temporary unnamed objects
 // Move constructor
 Mystring::Mystring( Mystring &&source) 
     :str(source.str) {
