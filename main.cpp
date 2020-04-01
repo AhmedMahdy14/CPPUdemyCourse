@@ -1,66 +1,110 @@
 #include <iostream>
-#include <vector>
+#include <cstring>
+#include <string>
 
 using namespace std;
 
+//functions prototypes
+void display(char* array);
+char* delete_text(char* source, int index, int n);
+char* delete_text_helper(char* source, char* target);
+void remove_vowels(char* source);
+void tokenize(const char* source, const char* delims);
+
+
+
 int main() {
-//    cout << "Hello, World!" << std::endl;
-//    return 0;
+    const int MAX_LENGTH = 100;
+    const int MAX_LENGTH_OPTIONS = 1;
+    char* source = new char[MAX_LENGTH];
+    char* target = new char[MAX_LENGTH];
+    char* chosen_option = new char[1];
+    std::cout<<"Enter the source string:\n";
+    std::cin.getline(source, MAX_LENGTH, '\n');
+    string options_str = "<Enter D(Delete), I(Insert), T(Tokenize), V(Vowel Removal) or Q(Quit)> ";
+    while(true){
+        std::cout<<options_str;
+        std::cin.getline(chosen_option, MAX_LENGTH_OPTIONS);
+        std::cout<<"chosen_option"<<chosen_option;
 
-    vector<int> vector1;
-    vector<int> vector2;
+        if (chosen_option[0] == 'D') {
+            std::cout << "Enter your target: ";
+            std::cin.getline(target, MAX_LENGTH, '\n');
 
-    vector1.push_back(10);
-    vector1.push_back(20);
-    cout << "Value of first index in vector1 is " << vector1.at(0) << endl;
-    cout << "Value of second index in vector1 is " << vector1.at(1) << endl;
-    cout << "Size of vector1 is " << vector1.size() << endl;
+            char* r = delete_text_helper(source, target);
+            display(r);
+        } else if (chosen_option[0] == 'I'){
+            std::cout<<"chosen_option"<<chosen_option;
 
-    vector2.push_back(100);
-    vector2.push_back(200);
-    cout << "Value of first index in vector2 is " << vector2.at(0) << endl;
-    cout << "Value of second index in vector2 is " << vector2.at(1) << endl;
-    cout << "Size of vector2 is " << vector2.size() << endl;
+        } else if (chosen_option[0] == 'V'){
+            std::cout<<"chosen_option"<<chosen_option;
 
-    vector<vector<int>> vector_2d;
-
-    vector_2d.push_back(vector1);
-    vector_2d.push_back(vector2);
-
-    cout << "First element of vector1 inside vector_2d is "
-         << vector_2d.at(0).at(0) << endl;
-
-    cout << "Second element of vector1 inside vector_2d is "
-         << vector_2d.at(0).at(1) << endl;
-
-
-    cout << "First element of vector2 inside vector_2d is "
-         << vector_2d.at(1).at(0) << endl;
-
-    cout << "Second element of vector2 inside vector_2d is "
-         << vector_2d.at(1).at(1) << endl;
-
-
-    vector1.at(0) = 1000;
-
-    cout << "First element of vector1 inside vector_2d is "
-         << vector_2d.at(0).at(0) << endl;
-
-    cout << "Second element of vector1 inside vector_2d is "
-         << vector_2d.at(0).at(1) << endl;
-
-
-    cout << "First element of vector2 inside vector_2d is "
-         << vector_2d.at(1).at(0) << endl;
-
-    cout << "Second element of vector2 inside vector_2d is "
-         << vector_2d.at(1).at(1) << endl;
-
-
-    cout << "First element of vector1 is " << vector1.at(0) << endl;
-
-    cout << "Second element of vector1 is " << vector1.at(1) << endl;
+        } else if (chosen_option[0] == 'Q'){
+            break;
+        } else{
+            continue;
+        }
+    }
 
     return 0;
+}
 
+char* delete_text_helper(char* source, char* target) {
+    char* ptr{nullptr};
+    ptr = std::strstr(source, target); // ptr to the matched array
+    if (ptr == nullptr) {
+        cout << "Entered ###";
+        return nullptr;
+    }
+    int position = ptr - source ; // index of the first matched char in target array
+
+//    cout<<"display ptr"<<endl;
+//    display(ptr);
+//    cout<<"\nPostion of the first occurence "<<position<<endl;
+//    cout<<"\n Target length "<<std::strlen(target)<<endl;
+    char* result_ptr = delete_text(source, position, std::strlen(target));
+    return result_ptr;
+}
+
+
+char* delete_text(char* source, int index, int n) {
+    int source_length = std::strlen(source);
+//    cout<< "source length "<<std::strlen(source)<<endl;
+//    cout<< "n "<<n<<endl;
+
+    char* arr {nullptr};
+    int arr_len = source_length - n + 1;
+    arr = new char[arr_len];
+//    cout<< "arr length "<<std::strlen(arr)<<endl;
+//    cout<< "Array length "<<source_length - n + 1<<endl;
+    int c =0;
+    for (int i = 0; i < index; ++i) {
+        arr[i] = source[i];
+        c++;
+    }
+
+    for (int j = index + n; j < source_length; ++j) {
+//        cout<< "source [j] "<<source[j]<<endl;
+//        cout<< "c "<<c<<endl;
+        arr[c] = source[j];
+        c++;
+    }
+    return arr;
+}
+
+
+void remove_vowels(char* source){
+    return;
+}
+
+void tokenize(const char* source, const char* delims){
+    return;
+}
+
+
+
+void display(char* array) {
+    while (*array != '\0')
+        cout << *array++;
+    cout << endl;
 }
